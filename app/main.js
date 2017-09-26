@@ -169,6 +169,7 @@ addDiv.prototype = {
                     let delAct = new Storage(that.statu, that.key);
                     delAct.del();
                     div.parentNode.removeChild(div);
+                    getAll.getUrl();
                 }
 
                 if (index === 3) {
@@ -179,7 +180,11 @@ addDiv.prototype = {
                     delnoDone.del();
 
                 }
-                getAll.getUrl();
+                // 进行浏览器刷新地址
+                let nowLocat = location.hash;
+                location.hash = '/';
+                location.hash = nowLocat;
+
             };
             div3.appendChild(a);
         });
@@ -212,7 +217,6 @@ Storage.prototype = {
         let dataArr = sessionStorage.getItem(that.statu) ? JSON.parse(sessionStorage.getItem(that.statu)) : [];
         that.value.statu = that.statu;
         if (that.key || that.key === 0) {
-            console.log('yessssssssss');
             dataArr[that.key] = that.value;
         } else {
             that.value.key = dataArr.length;
@@ -226,10 +230,11 @@ Storage.prototype = {
         let that = this;
         let store = that.get() || [];
         store.map((item, index) => {
-            index === that.key ? store.splice(that.key, 1) : '';
+            console.log('key' , item.key, that.key);
+            index === that.key ? store.splice(index, 1) : '';
         });
         sessionStorage.setItem(that.statu, JSON.stringify(store));
-        console.log('done',sessionStorage.getItem('done'));
+        console.log('done',sessionStorage.getItem('noDone'));
     },
     get: function () {
         let that = this;
@@ -291,10 +296,13 @@ dosAction.prototype = {
         let back = c('p');
         let backLink = c('a');
         backLink.innerText = '返回';
+        backLink.className = 'back';
         backLink.setAttribute('href', '#/all');
         let con = c('div');
         tit.innerText = that.tit;
         con.innerText = that.con;
+        tit.className = 'textTit';
+        con.className = 'textCon';
         $(that.cl)[0].appendChild(tit);
         $(that.cl)[0].appendChild(con);
         back.appendChild(backLink);
