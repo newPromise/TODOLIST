@@ -28,8 +28,8 @@ Router.prototype = {
 
 // 增加新事件，跳转到事件编辑页面
 let toWrite = new Router('#/addNew', function () {
-  let addNew = new togShow(['write'], ['things']);
-  addNew.togtogShow();
+  let addNew = new TogShow(['write'], ['things']);
+  addNew.togDisplay();
   $('write')[0].innerHTML = '';
   // do something
   let newObj = new DosAction();
@@ -44,8 +44,8 @@ toWrite.getUrl();
  * **/
 function getThings() {
   let things = {};
-  let addNew = new togShow(['things'], ['write']);
-  addNew.togtogShow();
+  let addNew = new TogShow(['things'], ['write']);
+  addNew.togDisplay();
   let noDoneThing = new Storage('noDone');
   let doneThing = new Storage('done');
   let getNoDone = noDoneThing.get() || [];
@@ -96,15 +96,15 @@ getNoDone.getUrl();
 
 // 编辑页面取消编辑，调回事项列表
 let cancelWrite = new Router('#/main', function () {
-  let cancel = new togShow(['things'], ['write']);
-  cancel.togtogShow();
+  let cancel = new TogShow(['things'], ['write']);
+  cancel.togDisplay();
 });
 cancelWrite.getUrl();
 
 // 确认编辑，保存编辑内容，跳回事项列表// 使用storage 进行存储
 let ensureWrite = new Router('#/ensure', function () {
-  let ensure = new togShow(['things'], ['write']);
-  ensure.togtogShow();
+  let ensure = new TogShow(['things'], ['write']);
+  ensure.togDisplay();
 });
 ensureWrite.getUrl();
 
@@ -150,8 +150,8 @@ Additems.prototype = {
           // 编辑页面
           a.setAttribute('href', '#/edit');
           let toEdit = new Router('#/edit', function () {
-            let addNew = new togShow(['write'], ['things']);
-            addNew.togtogShow();
+            let addNew = new TogShow(['write'], ['things']);
+            addNew.togDisplay();
             $('write')[0].innerHTML = '';
             // do something
             let newObj = new DosAction(that.tit, that.con, that.key);
@@ -162,8 +162,8 @@ Additems.prototype = {
         if (index === 1) {
           a.setAttribute('href', '#/view');
           let toView = new Router('#/view', function () {
-            let addNew = new togShow(['write'], ['things']);
-            addNew.togtogShow();
+            let addNew = new TogShow(['write'], ['things']);
+            addNew.togDisplay();
             $('write')[0].innerHTML = '';
             let viewObj = new DosAction(that.tit, that.con, that.key);
             viewObj.itemDetail();
@@ -222,7 +222,6 @@ Storage.prototype = {
     let dataArr = sessionStorage.getItem(that.statu) ? JSON.parse(sessionStorage.getItem(that.statu)) : [];
     that.value.statu = that.statu;
     if (that.key || that.key === 0) {
-      console.log('yessssssssss');
       dataArr[that.key] = that.value;
     } else {
       that.value.key = dataArr.length;
@@ -240,7 +239,6 @@ Storage.prototype = {
       }
     });
     sessionStorage.setItem(that.statu, JSON.stringify(store));
-    console.log('done', sessionStorage.getItem('done'));
   },
   get: function () {
     let that = this;
@@ -285,7 +283,7 @@ DosAction.prototype = {
       act.onclick = function () {
         // 编辑确定按钮
         if (index === 1) {
-          console.log('key', that.key);
+          // 这里过于耦合
           let save = new Storage('noDone', that.key, titInput.value, body.value);
           save.set();
           let delDone = new Storage('done', that.key);
@@ -325,12 +323,12 @@ DosAction.prototype = {
  *
  *
  * **/
-function togShow(showClass, hideClass) {
+function TogShow(showClass, hideClass) {
   this.showItem = showClass;
   this.hideItem = hideClass;
 }
-togShow.prototype = {
-  togtogShow: function () {
+TogShow.prototype = {
+  togDisplay: function () {
     let that = this;
     let allItems = [...that.showItem, ...that.hideItem];
     allItems.map((item) => {
