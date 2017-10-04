@@ -7,3 +7,5 @@
 `npm install`
 
 `npm run start`
+
+![](http://ov3b9jngp.bkt.clouddn.com/todoLIst.mp4)
