@@ -8,4 +8,4 @@
 
 `npm run start`
 
-![]('./static/todo')
+![]('./static/todo.gif')
