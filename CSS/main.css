@@ -118,4 +118,12 @@ li {
     width: 80%;
     height: 200px;
 }
+.thingTitle {
+    text-align: center;
+    font-size: 30px;
+}
+.thingContent {
+    min-height: 300px;
+    text-align: left;
+}
 

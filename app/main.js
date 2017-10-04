@@ -302,6 +302,7 @@ DosAction.prototype = {
   itemDetail: function () {
     let that = this;
     let tit = c('p');
+    tit.className = 'thingTitle';
     let back = c('p');
     let backLink = c('a');
     backLink.innerText = '返回';
@@ -309,6 +310,7 @@ DosAction.prototype = {
     let con = c('div');
     tit.innerText = that.tit;
     con.innerText = that.con;
+    con.className = 'thingContent';
     $(that.cl)[0].appendChild(tit);
     $(that.cl)[0].appendChild(con);
     back.appendChild(backLink);
