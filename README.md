@@ -9,3 +9,5 @@
 `npm run start`
 
 ![](./static/todo.gif)
+
+![](./static/todo2.gif)
