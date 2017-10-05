@@ -5,9 +5,9 @@
 
 `git clone http://github.com/qianduangaoshou/TODOLIST.git`
 
-`npm install`
+`cnpm install`
 
-`npm run start`
+`cnpm run start`
 
 ![](./static/todo.gif)
 
